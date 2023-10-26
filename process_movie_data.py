@@ -3,7 +3,7 @@
 import csv
 
 
-def find_top_5(filename):
+def find_top_N(filename, n):
     """Finds the top N highest grossing movies in a CSV dataset.
        Input: filename, a string - points to filename of dataset
        Output: None
@@ -22,10 +22,11 @@ def find_top_5(filename):
     # Sort data and get top N
     gross_sort = lambda x : x["Gross"]
     rows.sort(key=gross_sort)
-    top_five = rows[:-6:-1]
+
+    top_N = rows[:-(n+1):-1]
 
     # Print out results
-    for i, row in enumerate(top_five):
+    for i, row in enumerate(top_N):
         print("{ind}. {row[Title]} ({row[Year]}) - ${row[Gross]:,d}".format(
             ind=i+1,
             row=row))
@@ -35,4 +36,4 @@ def find_top_5(filename):
 # Movie data comes from "Movie Gross and Ratings" dataset on Kaggle by Yashwanth Sharaf
 # https://www.kaggle.com/datasets/thedevastator/movie-gross-and-ratings-from-1989-to-2014
 if __name__ == "__main__":
-    find_top_5("Movies_gross_rating.csv")
+    find_top_N("Movies_gross_rating.csv", n = 5)
